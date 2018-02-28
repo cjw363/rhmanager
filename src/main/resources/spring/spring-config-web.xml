@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+		http://www.springframework.org/schema/mvc  
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	
+	<context:annotation-config />
+	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
+	<context:component-scan base-package="com.cjw.rhmanager.controller" />
+	
+	<!-- 开启多种视图支持-->
+	<mvc:annotation-driven />
+	
+	<!-- 对静态资源文件的访问  restful-->     
+	<mvc:resources mapping="/resource/**" location="/resource/" />
+	<mvc:resources mapping="/upload/**" location="/upload/" />
+	
+	<!-- 访问拦截  -->  
+  	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/resource/**"/>
+			<bean class="com.cjw.rhmanager.spring.RhLoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- 定义json视图 -->
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="1" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json"/>
+				<entry key="xml" value="application/xml"/>
+				<entry key="htm" value="text/html"/>
+			</map>
+		</property>
+		<property name="defaultViews">
+            <list>
+                <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+            </list>
+        </property>
+        <property name="ignoreAcceptHeader" value="true" />
+	</bean>
+	
+	<!-- 定义跳转的文件的前后缀 ，jsp视图模式配置-->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/webpage/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <!-- 文件大小最大值 -->
+        <property name="maxUploadSize" value="209715200" />
+        <!-- 默认编码 -->
+        <property name="defaultEncoding" value="utf-8" />
+        <!-- 内存中的最大值 -->
+        <property name="maxInMemorySize" value="40960" />
+		<property name="resolveLazily" value="true" />
+    </bean> 
+</beans>

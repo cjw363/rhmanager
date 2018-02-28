@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!--全局映射器启用缓存-->
+        <setting name="cacheEnabled" value="true" />
+        <!--使用列别名替换别名,默认true-->
+        <setting name="useColumnLabel" value="true" />
+        <!--使用jdbc的getGeneratekeys获取自增主键值-->
+        <setting name="useGeneratedKeys" value="true" />
+        <!--配置默认的执行器,SIMPLE、REUSE、BATCH-->
+        <setting name="defaultExecutorType" value="REUSE" />
+        <!--开启驼峰命名转换Table:create_time到bean:createTime-->
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+        <!-- 输出sql查询信息，正式环境最好注释掉 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+
+	<typeAliases>
+		<typeAlias type="com.cjw.rhmanager.utils.ParamData" alias="pd"/>
+		<typeAlias type="com.cjw.rhmanager.entity.system.Page" alias="page"/>
+	</typeAliases>
+	
+	<!-- 用来过滤是否分页查询 -->
+    <plugins>
+		<plugin interceptor="com.cjw.rhmanager.utils.PagePlugin">
+			<property name="dialect" value="oracle"/>
+			<property name="method" value=".*ByPage.*"/>
+		</plugin>
+	</plugins>
+</configuration>
