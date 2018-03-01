@@ -67,15 +67,34 @@
 </div>
 <script type="text/javascript">
     $('button.login').click(function () {
-        var account = $('input#account').val().trim();
+        var name = $('input#account').val().trim();
         var password = $('input#password').val().trim();
-        if (!account)
+        var pattern = /^[0-9a-zA-Z]{4,12}$/;
+        if (!name)
             myAlert("账号不能为空");
-
-        if (!password)
+        else if (!password)
             myAlert("密码不能为空");
-
+        else if (pattern.test(name))
+            myAlert("账号只能是数字或者字母的");
+        else if (pattern.test(password))
+            myAlert("密码只能是数字或者字母");
+        else
+            ajaxLogin(name, password);
     });
+
+    function ajaxLogin(name, password) {
+        var loading = myLoading();
+        ajaxDataByPost({
+            url: "${pageContext.request.contextPath}/rh/login",
+            data: {
+                name: name,
+                password: password
+            },
+            success: function (data) {
+                layer.close(loading);
+            }
+        });
+    }
 </script>
 </body>
 </html>
