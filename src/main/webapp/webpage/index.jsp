@@ -19,6 +19,7 @@
         .container {
             height: 100%;
             width: 100%;
+            padding: 0;
         }
 
         .background-color {
@@ -33,6 +34,10 @@
             color: white;
         }
 
+        h3.nav-title, hr.nav-divider {
+            padding: 0 15px 0 15px;
+        }
+
         form.login {
             width: 60%;
             max-width: 450px;
@@ -41,6 +46,7 @@
             left: 0;
             right: 0;
             bottom: 0;
+            margin-top: 20%;
         }
 
         button.login {
@@ -52,6 +58,7 @@
 <div class="container background-color">
     <h3 class="nav-title">大学生出租屋租借平台
         <small>&nbsp;&nbsp;(管理系统)</small>
+        <img src="${pageContext.request.contextPath}/resource/images/head_protrait.png">
     </h3>
     <hr class="nav-divider"/>
 
