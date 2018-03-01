@@ -29,7 +29,7 @@
             background-image: radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
         }
 
-        .nav-title,.nav-title small{
+        .nav-title, .nav-title small {
             color: white;
         }
 
@@ -43,7 +43,7 @@
             bottom: 0;
         }
 
-        form.login button {
+        button.login {
             width: 100%;
         }
     </style>
@@ -57,13 +57,25 @@
 
     <form class="login">
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="账号">
+            <input type="text" class="form-control" id="account" placeholder="账号">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="密码">
+            <input type="password" class="form-control" id="password" placeholder="密码">
         </div>
-        <button type="button" class="btn btn-default">登录</button>
+        <button type="button" class="btn btn-primary login">登录</button>
     </form>
 </div>
+<script type="text/javascript">
+    $('button.login').click(function () {
+        var account = $('input#account').val().trim();
+        var password = $('input#password').val().trim();
+        if (!account)
+            myAlert("账号不能为空");
+
+        if (!password)
+            myAlert("密码不能为空");
+
+    });
+</script>
 </body>
 </html>

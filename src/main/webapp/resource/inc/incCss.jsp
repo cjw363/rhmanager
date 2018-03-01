@@ -6,6 +6,7 @@
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 <!-- Bootstrap -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/js/layer/need/layer.css">
 <style type="text/css">
     /*修复vue加载时显示{{}}问题 */
     [v-cloak] {
