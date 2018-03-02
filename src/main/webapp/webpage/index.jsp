@@ -6,38 +6,6 @@
     <%@include file="../resource/inc/incJs.jsp" %>
 
     <style type="text/css">
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        html, body {
-            height: 100%;
-            width: 100%;
-        }
-
-        .container {
-            height: 100%;
-            width: 100%;
-            padding: 0;
-        }
-
-        .background-color {
-            background: #282537;
-            background-image: -webkit-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
-            background-image: -moz-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
-            background-image: -o-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
-            background-image: radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
-        }
-
-        .nav-title, .nav-title small {
-            color: white;
-        }
-
-        h3.nav-title, hr.nav-divider {
-            padding: 0 15px 0 15px;
-        }
-
         form.login {
             width: 60%;
             max-width: 450px;
@@ -58,7 +26,7 @@
 <div class="container background-color">
     <h3 class="nav-title">大学生出租屋租借平台
         <small>&nbsp;&nbsp;(管理系统)</small>
-        <img src="${pageContext.request.contextPath}/resource/images/head_protrait.png">
+        <img class="protrait" src="${pageContext.request.contextPath}/resource/images/head_protrait.png">
     </h3>
     <hr class="nav-divider"/>
 

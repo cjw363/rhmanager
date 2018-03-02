@@ -7,6 +7,7 @@
 <!-- Bootstrap -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/js/layer/need/layer.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/base.css">
 <style type="text/css">
     /*修复vue加载时显示{{}}问题 */
     [v-cloak] {

@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+
+.background-color {
+    background: #282537;
+    background-image: -webkit-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
+    background-image: -moz-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
+    background-image: -o-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
+    background-image: radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
+}
+
+.nav-title, .nav-title small {
+    color: white;
+}
+
+h3.nav-title, hr.nav-divider {
+    padding: 20px 15px 20px 15px;
+    margin: 0;
+}
+
+img.protrait {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 15px;
+    right: 50px;
+}
+p.protrait.name{
+    position: absolute;
+    top: 28px;
+    right: 100px;
+    font-size: 18px;
+}

@@ -2,4 +2,5 @@
 <!-- Bootstrap -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/js/layer/layer.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resource/js/vue.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/js/tool.js"></script>
