@@ -49,9 +49,9 @@
             myAlert("账号不能为空");
         else if (!password)
             myAlert("密码不能为空");
-        else if (pattern.test(name))
+        else if (!pattern.test(name))
             myAlert("账号只能是数字或者字母的");
-        else if (pattern.test(password))
+        else if (!pattern.test(password))
             myAlert("密码只能是数字或者字母");
         else
             ajaxLogin(name, password);
@@ -67,6 +67,9 @@
             },
             success: function (data) {
                 layer.close(loading);
+                if (data.code == 1) {
+                    window.location.href = "webpage/main.jsp?name=" + data.result.name;
+                }
             }
         });
     }

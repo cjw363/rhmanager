@@ -1,3 +1,7 @@
+function l(str) {
+    console.log(str);
+}
+
 function ajaxDataByPost(jsonObj) {
     var url = jsonObj.url;
     var data = jsonObj.data;
@@ -637,37 +641,37 @@ function checkClick(event) {
             frontBtnNum = frontBtnNum.toString().indexOf('.') == -1 ? frontBtnNum : frontBtnNum + 0.5;
             behindBtnNum = behindBtnNum.toString().indexOf('.') == -1 ? behindBtnNum : behindBtnNum + 0.5;
             /* 手机端使用时，注释掉了该段逻辑
-            if (pageIndex <= frontBtnNum) {
-                if (showFirstLastBtn) {
-                    html = renderPage(1, pageBtnCount - 2, pageIndex);
-                    html.push(nextPage);
-                    html.push(lastPage);
-                } else {
-                    html = renderPagenderPage(1, pageBtnCount - 1, pageIndex);
-                    html.push(nextPage);
-                }
-            }else if (pageIndex > behindBtnNum) {
-                if (showFirstLastBtn) {
-                    html = renderPage(pageCount - pageBtnCount + 3, pageBtnCount - 2, pageIndex);
-                    html.unshift(prevPage);
-                    html.unshift(firstPage);
-                } else {
-                    html = renderPage(pageCount - pageBtnCount + 2, pageBtnCount - 1, pageIndex);
-                    html.unshift(prevPage);
-                }
-            }else {
-                if (showFirstLastBtn) {
-                    html = renderPage(pageIndex - symmetryBtnCount, pageBtnCount - 4, pageIndex);
-                    html.unshift(prevPage);
-                    html.push(nextPage);
-                    html.unshift(firstPage);
-                    html.push(lastPage);
-                } else {
-                    html = renderPage(pageIndex - symmetryBtnCount, pageBtnCount - 2, pageIndex);
-                    html.unshift(prevPage);
-                    html.push(nextPage);
-                }
-            }*/
+             if (pageIndex <= frontBtnNum) {
+             if (showFirstLastBtn) {
+             html = renderPage(1, pageBtnCount - 2, pageIndex);
+             html.push(nextPage);
+             html.push(lastPage);
+             } else {
+             html = renderPagenderPage(1, pageBtnCount - 1, pageIndex);
+             html.push(nextPage);
+             }
+             }else if (pageIndex > behindBtnNum) {
+             if (showFirstLastBtn) {
+             html = renderPage(pageCount - pageBtnCount + 3, pageBtnCount - 2, pageIndex);
+             html.unshift(prevPage);
+             html.unshift(firstPage);
+             } else {
+             html = renderPage(pageCount - pageBtnCount + 2, pageBtnCount - 1, pageIndex);
+             html.unshift(prevPage);
+             }
+             }else {
+             if (showFirstLastBtn) {
+             html = renderPage(pageIndex - symmetryBtnCount, pageBtnCount - 4, pageIndex);
+             html.unshift(prevPage);
+             html.push(nextPage);
+             html.unshift(firstPage);
+             html.push(lastPage);
+             } else {
+             html = renderPage(pageIndex - symmetryBtnCount, pageBtnCount - 2, pageIndex);
+             html.unshift(prevPage);
+             html.push(nextPage);
+             }
+             }*/
             ///手机端使用时，添加了该段逻辑
             if (showFirstLastBtn) {
                 html = renderPage(pageIndex - symmetryBtnCount, pageBtnCount - 4, pageIndex);

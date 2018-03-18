@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<% String name = request.getParameter("name");
+%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -13,9 +15,14 @@
     <h3 class="nav-title background-color">大学生出租屋租借平台
         <small>&nbsp;&nbsp;(管理系统)</small>
         <img class="protrait" src="${pageContext.request.contextPath}/resource/images/head_protrait.png">
-        <p class="protrait name">root</p>
+        <p class="protrait name"></p>
     </h3>
     <hr class="nav-divider"/>
 </div>
 </body>
+<script type="text/javascript">
+    var name = '<%=name%>';
+    $('.protrait.name').html(name);
+
+</script>
 </html>
