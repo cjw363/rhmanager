@@ -67,8 +67,9 @@
             },
             success: function (data) {
                 layer.close(loading);
+                l(data);
                 if (data.code == 1) {
-                    window.location.href = "webpage/main.jsp?name=" + data.result.name;
+                    window.location.href = "webpage/main.jsp?name=" + data.result.name + "&token=" + data.result.token;
                 }
             }
         });

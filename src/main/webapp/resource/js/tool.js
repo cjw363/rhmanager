@@ -197,88 +197,6 @@ function listenHistoryByParent(pageDialog) {
     }, false);
 }
 
-function MyDataGrid(listVm, jsonObject, viewModel) {
-    var _this = this;
-    var pageCur = 1;
-    var pageNav;
-    if (viewModel) {
-        pageNav = new Vue({
-            el: viewModel,
-            data: {
-                pageCur: 1,
-                pageMax: 1,
-                totalNum: 1,
-                prevEnable: "",
-                nextEnable: "",
-                pageNavLinkArray: []
-            },
-            methods: {
-                navClick: function (page) {
-                    _this.query(page);
-                },
-                homeNavClick: function () {
-                    _this.query(1);
-                },
-                prevNavClick: function () {
-                    var toPage = pageNav.pageCur - 1;
-                    if (toPage >= 1) {
-                        _this.query(toPage);
-                    }
-                },
-                nextNavClick: function () {
-                    var toPage = pageNav.pageCur + 1;
-                    if (toPage <= pageNav.pageMax) {
-                        _this.query(toPage);
-                    }
-                },
-                lastNavClick: function () {
-                    var toPage = pageNav.pageMax;
-                    _this.query(toPage);
-                }
-            }
-        });
-    }
-
-    this.query = function (toPage) {
-        pageCur = toPage || pageCur;
-        var waitDialog = myLoading();
-        var toPostData = jsonObject.data || [];
-        toPostData = mySetPageCur(toPostData, toPage);
-        ajaxDataByPost({
-            url: jsonObject.url,
-            data: toPostData,
-            success: function (data) {
-                if (data && data["pageList"]) {
-                    myCopyArray(data["pageList"], listVm.items);
-                    listVm.searching = false;
-                    if (pageNav) {
-                        pageNav.totalNum = data.totalNum;
-                        pageNav.pageCur = data.pageCur;
-                        pageNav.pageMax = data.pageMax;
-                        pageNav.prevEnable = pageNav.pageCur == 1 ? "disabled" : "";
-                        pageNav.pageNavLinkArray = [];
-                        for (var i = data.pageCur - 2; i <= data.pageCur + 2; i++) {
-                            if (i >= 1 && i <= data.pageMax) {
-                                pageNav.pageNavLinkArray.push({
-                                    active: data.pageCur == i ? "active" : "",
-                                    page: i
-                                });
-                            }
-                        }
-                        pageNav.nextEnable = (data.pageCur + 1 > data.pageMax) ? "disabled" : "";
-                    }
-                    if (jsonObject.success) {
-                        jsonObject.success(data)
-                    }
-                } else {
-                    myAlert("操作异常");
-                }
-                layer.close(waitDialog);
-            }
-        });
-    };
-}
-
 function closeParentLayer() {
     var index = parent.layer.getFrameIndex(window.name);
     parent.layer.close(index);
@@ -554,9 +472,10 @@ function checkClick(event) {
                 success: function (result) {
                     that.debug("ajax request : params = " + JSON.stringify(requestParams), result);
                     var total = GetCustomTotalName(result, that.options.remote.totalName);
-                    if (total == null || total == undefined) {
-                        console && console.error("the response of totalName :  '" + that.options.remote.totalName + "'  not found");
-                    } else {
+                    // if (total == null || total == undefined) {
+                    //     console && console.error("the response of totalName :  '" + that.options.remote.totalName + "'  not found");
+                    // } else
+                    {
                         that._updateTotal(total);
                         if (typeof that.options.remote.success === 'function') that.options.remote.success(result, pageIndex);
                         that.renderPagination(pageIndex);
@@ -837,6 +756,17 @@ function dateToStamp(stringTime) {
     return timestamp.toString();
 }
 
+function stampToDate(timestamp) {
+    var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+    Y = date.getFullYear() + '-';
+    M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    D = date.getDate() + ' ';
+    h = date.getHours() + ':';
+    m = date.getMinutes() + ':';
+    s = date.getSeconds();
+    return Y + M + D + h + m + s;
+}
+
 /**
  * [Queue]
  * @param {[Int]} size [队列大小]
@@ -870,3 +800,27 @@ function Queue(size) {
         return list;
     }
 }
+
+function formatDate(date, fmt) {
+    if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+    }
+    let o = {
+        'M+': date.getMonth() + 1,
+        'd+': date.getDate(),
+        'h+': date.getHours(),
+        'm+': date.getMinutes(),
+        's+': date.getSeconds()
+    };
+    for (let k in o) {
+        if (new RegExp(`(${k})`).test(fmt)) {
+            let str = o[k] + '';
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str));
+        }
+    }
+    return fmt;
+};
+
+function padLeftZero(str) {
+    return ('00' + str).substr(str.length);
+};

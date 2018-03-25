@@ -16,12 +16,8 @@
         VALUES (#{title},#{content},#{title_img},#{other_img},#{type},#{longitude},#{latitude},#{location},#{amount},#{bed},#{house_type},#{area},#{label},#{user_id},now())
     </insert>
 
-    <select id="selectCampusList" parameterType="page" resultType="pd">
-        select * from tbl_rent where type=#{pd.type}
-        and latitude &lt;= #{pd.maxLat}
-        and latitude >= #{pd.minLat}
-        and longitude &lt;= #{pd.maxLng}
-        and longitude >= #{pd.minLng}
+    <select id="selectCampusListByPage" parameterType="page" resultType="pd">
+        select * from tbl_rent
     </select>
     <select id="selectCampusListByTime" parameterType="page" resultType="pd">
         select * from tbl_rent where type=#{pd.type}

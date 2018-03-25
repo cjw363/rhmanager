@@ -5,7 +5,6 @@ import com.cjw.rhmanager.entity.LoginUser;
 import com.cjw.rhmanager.entity.system.Page;
 import com.cjw.rhmanager.service.RentHouseService;
 import com.cjw.rhmanager.utils.CommConst;
-import com.cjw.rhmanager.utils.MapDistance;
 import com.cjw.rhmanager.utils.ParamData;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -14,10 +13,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2017/12/26.
@@ -54,54 +50,7 @@ public class RentHouseServiceImpl implements RentHouseService {
 
     @Override
     public List<ParamData> getCampusList(Page page) {
-        ParamData pd = page.getPd();
-        String sortType = pd.getString("sort_type");
-        Map around = MapDistance.getAround(pd.getString("latitude"), pd.getString("longitude"), "30000");
-        pd.put("minLat", around.get("minLat"));
-        pd.put("maxLat", around.get("maxLat"));
-        pd.put("minLng", around.get("minLng"));
-        pd.put("maxLng", around.get("maxLng"));
-
-        List<ParamData> campusList = null;
-        if ("default".equals(sortType)) {
-            campusList = rentHouseDao.selectCampusList(page);
-        } else if ("time".equals(sortType)) {
-            campusList = rentHouseDao.selectCampusListByTime(page);
-        } else if ("distance".equals(sortType)) {
-            campusList = rentHouseDao.selectCampusList(page);
-        } else if ("amount_up".equals(sortType)) {
-            campusList = rentHouseDao.selectCampusListByAmountUp(page);
-        } else if ("amount_down".equals(sortType)) {
-            campusList = rentHouseDao.selectCampusListByAmountDown(page);
-        } else {
-            campusList = rentHouseDao.selectCampusList(page);
-        }
-
-        for (ParamData p : campusList) {
-            String longitude1 = pd.getString("longitude");
-            String latitude1 = pd.getString("latitude");
-            String longitude2 = p.get("longitude") + "";
-            String latitude2 = p.get("latitude") + "";
-            //计算30公里内
-            int distance = MapDistance.getDistance(latitude1, longitude1, latitude2, longitude2);
-            if (distance <= 30000) {
-                p.put("distance", distance);
-            }
-        }
-        if ("distance".equals(sortType)) {
-            Collections.sort(campusList, new Comparator<ParamData>() {
-                @Override
-                public int compare(ParamData p1, ParamData p2) {
-                    //升序
-                    int d1 = (Integer) p1.get("distance");
-                    int d2 = (Integer) p2.get("distance");
-                    if (d1 > d2) return 1;
-                    if (d1 == d2) return 0;
-                    return -1;
-                }
-            });
-        }
-        return campusList;
+        return rentHouseDao.selectCampusListByPage(page);
     }
 
     @Override

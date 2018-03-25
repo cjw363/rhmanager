@@ -20,7 +20,7 @@ public interface RentHouseDao {
 
     ParamData selectSchoolByName(ParamData pd);
 
-    List<ParamData> selectCampusList(Page page);
+    List<ParamData> selectCampusListByPage(Page page);
 
     int insertRent(ParamData pd);
 

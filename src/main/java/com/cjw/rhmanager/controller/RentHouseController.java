@@ -1,13 +1,13 @@
 package com.cjw.rhmanager.controller;
 
 import com.cjw.rhmanager.controller.base.BaseController;
+import com.cjw.rhmanager.entity.PageResult;
 import com.cjw.rhmanager.entity.system.Page;
 import com.cjw.rhmanager.service.RentHouseService;
 import com.cjw.rhmanager.utils.CommUtil;
 import com.cjw.rhmanager.utils.HandleEnum;
 import com.cjw.rhmanager.utils.ParamData;
 import com.cjw.rhmanager.utils.ResultData;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/12/26.
@@ -32,7 +31,7 @@ public class RentHouseController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/campusList")
-    public ResultData<List<ParamData>> campusList(HttpServletRequest request) {
+    public PageResult<ParamData> campusList(HttpServletRequest request) {
         try {
             //获取参数
             ParamData pd = this.paramDataInit();
@@ -42,10 +41,12 @@ public class RentHouseController extends BaseController {
             Page page = new Page(pageCur, pageSize, pd);
             List<ParamData> result = rentHouseService.getCampusList(page);
 
-            return new ResultData<List<ParamData>>(HandleEnum.SUCCESS, result);
+            PageResult<ParamData> pr = new PageResult<ParamData>(page.getPageCur(), page.getPageSize(), page.getTotalNum(), result);
+
+            return pr;
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResultData<List<ParamData>>(HandleEnum.FAIL, e.getMessage());
+            return new PageResult<ParamData>(false, e.getMessage());
         }
     }
 

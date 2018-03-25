@@ -24,7 +24,7 @@
 	<!-- 用来过滤是否分页查询 -->
     <plugins>
 		<plugin interceptor="com.cjw.rhmanager.utils.PagePlugin">
-			<property name="dialect" value="oracle"/>
+			<property name="dialect" value="mysql"/>
 			<property name="method" value=".*ByPage.*"/>
 		</plugin>
 	</plugins>
