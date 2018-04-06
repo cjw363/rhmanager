@@ -34,13 +34,16 @@ h3.nav-title, hr.nav-divider {
 img.protrait {
     width: 40px;
     height: 40px;
-    position: absolute;
-    top: 15px;
+    float: right;
     right: 50px;
+    margin-top: -5px;
 }
-p.protrait.name{
-    position: absolute;
+
+span.protrait.name {
+    float: right;
     top: 28px;
     right: 100px;
+    margin-top: 5px;
+    margin-right: 2px;
     font-size: 18px;
 }

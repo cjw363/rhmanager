@@ -137,4 +137,50 @@ public class RentHouseController extends BaseController {
             return new ResultData<List<ParamData>>(HandleEnum.FAIL, e.getMessage());
         }
     }
+
+    @ResponseBody
+    @RequestMapping("/deleteRent")
+    public ResultData<ParamData> deleteRent(HttpServletRequest request) {
+        try {
+            //获取参数
+            ParamData pd = this.paramDataInit();
+            if (rentHouseService.deleteRent(pd) > 0)
+                return new ResultData<ParamData>(HandleEnum.SUCCESS);
+            else
+                return new ResultData<ParamData>(HandleEnum.FAIL);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultData<ParamData>(HandleEnum.FAIL, e.getMessage());
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/updateStatusRent")
+    public ResultData<ParamData> updateStatusRent(HttpServletRequest request) {
+        try {
+            //获取参数
+            ParamData pd = this.paramDataInit();
+            if (rentHouseService.updateStatusRent(pd) > 0)
+                return new ResultData<ParamData>(HandleEnum.SUCCESS);
+            else
+                return new ResultData<ParamData>(HandleEnum.FAIL);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultData<ParamData>(HandleEnum.FAIL, e.getMessage());
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/detailRent")
+    public ResultData<ParamData> detailRent(HttpServletRequest request) {
+        try {
+            //获取参数
+            ParamData pd = this.paramDataInit();
+            pd = rentHouseService.selectDetailRent(pd);
+            return new ResultData<ParamData>(HandleEnum.SUCCESS, pd);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultData<ParamData>(HandleEnum.FAIL, e.getMessage());
+        }
+    }
 }

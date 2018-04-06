@@ -171,4 +171,18 @@ public class RentHouseServiceImpl implements RentHouseService {
 
         return file;
     }
+
+    @Override
+    public int deleteRent(ParamData pd) {
+        return rentHouseDao.deleteRent(pd);
+    }
+
+    @Override
+    public int updateStatusRent(ParamData pd) {
+        return rentHouseDao.updateStatusRent(pd);
+    }
+
+    public ParamData selectDetailRent(ParamData pd) {
+        return rentHouseDao.selectRentById(pd);
+    }
 }

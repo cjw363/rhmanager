@@ -50,4 +50,16 @@
     <insert id="insertBBs" parameterType="pd">
         insert into tbl_bbs (rent_id,user_id,content,time) values (#{rent_id},#{user_id},#{content},now())
     </insert>
+
+    <delete id="deleteRent" parameterType="pd">
+        delete from tbl_rent where id=#{rent_id}
+    </delete>
+
+    <update id="updateStatusRent" parameterType="pd">
+        update tbl_rent set status=#{status} where id=#{rent_id}
+    </update>
+
+    <select id="selectRentById"  parameterType="pd" resultType="pd">
+        select * from tbl_rent where id=#{rent_id}
+    </select>
 </mapper>
